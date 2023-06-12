@@ -54,7 +54,10 @@ def lambda_handler(event, context):
 
     api_key = response["key"]
 
-    secrects_manager.create_secret(Name=secret_name, SecretString=api_key)
+    try: 
+        secrects_manager.update_secret(SecretId=secret_name, SecretString=api_key)
+    except:
+        secrects_manager.create_secret(Name=secret_name, SecretString=api_key)
     
 
     header = {
